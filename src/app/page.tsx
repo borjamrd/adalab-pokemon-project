@@ -1,5 +1,6 @@
 "use client";
 
+import { PageTransitionLayout } from "@/components/PageTransitionsLayout";
 import PokemonCard from "@/components/PokemonCard";
 import { useGlobalContext } from "@/context/Global";
 import styles from "@/styles/page.module.scss";
@@ -10,12 +11,15 @@ export default function Home() {
   console.log(allPokemonData);
 
   return (
-    <main className={styles.main}>
-      <div className={styles.grid}>
-        {allPokemonData.map((pokemon: any) => {
-          return <PokemonCard key={pokemon.id} pokemon={pokemon} />;
-        })}
-      </div>
-    </main>
+    <PageTransitionLayout>
+      {" "}
+      <main className={styles.main}>
+        <div className={styles.grid}>
+          {allPokemonData.map((pokemon: any) => {
+            return <PokemonCard key={pokemon.id} pokemon={pokemon} />;
+          })}
+        </div>
+      </main>
+    </PageTransitionLayout>
   );
 }

@@ -1,3 +1,4 @@
+import { PageTransitionLayout } from "@/components/PageTransitionsLayout";
 import Providers from "@/context/Providers";
 import "@/styles/globals.scss";
 import type { Metadata } from "next";

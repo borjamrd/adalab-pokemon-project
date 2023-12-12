@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import styles from "@/styles/pokemon.module.scss";
+import styles from "@/styles/page.module.scss";
 import Image from "next/image";
+import Types from "./Types";
 export default function PokemonCard({ pokemon }: any) {
   return (
-    <Link href="/:id" className={styles.card}>
+    <Link href={pokemon.name} className={styles.card}>
       <div>
         <Image
           src={pokemon.sprites.other.dream_world.front_default}
@@ -17,9 +18,8 @@ export default function PokemonCard({ pokemon }: any) {
       </div>
 
       <h3>{pokemon.name}</h3>
-      {pokemon.types?.map((type: any, i: number) => {
-        return <p key={i}> {type.type.name}</p>;
-      })}
+
+      <Types types={pokemon.types} />
     </Link>
   );
 }

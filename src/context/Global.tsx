@@ -32,6 +32,7 @@ const GET_ALL_POKEMON_DATA = "GET_ALL_POKEMON_DATA";
 const GET_SEARCH = "GET_SEARCH";
 const GET_POKEMON_DATABASE = "GET_POKEMON_DATABASE";
 const NEXT = "NEXT";
+
 // reducer
 const reducer = (state: any, action: any) => {
   switch (action.type) {
@@ -39,6 +40,8 @@ const reducer = (state: any, action: any) => {
       return { ...state, loading: true };
     case GET_ALL_POKEMON:
       return { ...state, allPokemon: action.payload, loading: false };
+    case GET_POKEMON:
+      return { ...state, pokemon: action.payload, loading: false };
   }
   return state;
 };
@@ -54,7 +57,6 @@ export const GlobalProvider = ({ children }: Props) => {
     dispatch({ type: "LOADING" });
     const response = await fetch(`${baseUrl}/pokemon?limit=${limit}`);
     const data = await response.json();
-    console.log(data);
     dispatch({ type: "GET_ALL_POKEMON", payload: data.results });
 
     //fetch temporary data
@@ -69,11 +71,21 @@ export const GlobalProvider = ({ children }: Props) => {
     setAllPokemonData(allPokemonData);
   };
 
+  //get Pokemon info
+
+  const getPokemon = async (name: any) => {
+    dispatch({ type: "lOADING" });
+    const res = await fetch(`${baseUrl}/pokemon/${name}`);
+    const data = await res.json();
+
+    dispatch({ type: "GET_POKEMON", payload: data });
+  };
+
   useEffect(() => {
     allPokemon();
   }, []);
   return (
-    <GlobalContext.Provider value={{ ...state, allPokemonData }}>
+    <GlobalContext.Provider value={{ ...state, allPokemonData, getPokemon }}>
       {children}
     </GlobalContext.Provider>
   );
