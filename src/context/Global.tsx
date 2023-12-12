@@ -54,6 +54,7 @@ export const GlobalProvider = ({ children }: Props) => {
     dispatch({ type: "LOADING" });
     const response = await fetch(`${baseUrl}/pokemon?limit=${limit}`);
     const data = await response.json();
+    console.log(data);
     dispatch({ type: "GET_ALL_POKEMON", payload: data.results });
 
     //fetch temporary data
@@ -64,8 +65,6 @@ export const GlobalProvider = ({ children }: Props) => {
       const pokemonData = await pokemonResponse.json();
       allPokemonData.push(pokemonData);
     }
-
-    console.log(allPokemonData);
 
     setAllPokemonData(allPokemonData);
   };
