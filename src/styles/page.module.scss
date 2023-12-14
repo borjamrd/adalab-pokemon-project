@@ -108,6 +108,33 @@
   max-width: 30ch;
 }
 
+
+.search_form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.input_control {
+  padding: 1rem 1.5rem;
+}
+
+.search_results {
+  position: absolute;
+  height: 14rem;
+  width: 14rem;
+  top: 20%;
+  left: 50%;
+  overflow: auto;
+  transform: translateX(-50%);
+  z-index: 5;
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 3px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   .card:hover {

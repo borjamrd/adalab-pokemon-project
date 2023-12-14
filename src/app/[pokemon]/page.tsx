@@ -19,8 +19,6 @@ export default function Page() {
     }
   }, [params.pokemon]);
 
-  console.log(pokemonItem);
-
   return (
     <PageTransitionLayout>
       {pokemonItem && (

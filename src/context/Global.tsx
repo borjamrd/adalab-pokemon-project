@@ -25,16 +25,29 @@ const initialState = {
 const GlobalContext = createContext<any>(initialState);
 
 // actions
-const LOADING = "LOADING";
-const GET_POKEMON = "GET_POKEMON";
-const GET_ALL_POKEMON = "GET_ALL_POKEMON";
-const GET_ALL_POKEMON_DATA = "GET_ALL_POKEMON_DATA";
-const GET_SEARCH = "GET_SEARCH";
-const GET_POKEMON_DATABASE = "GET_POKEMON_DATABASE";
-const NEXT = "NEXT";
+
+type PokemonActions =
+  | "LOADING"
+  | "GET_POKEMON"
+  | "GET_ALL_POKEMON"
+  | "GET_ALL_POKEMON_DATA"
+  | "GET_SEARCH"
+  | "GET_POKEMON_DATABASE"
+  | "NEXT";
+
+const LOADING: PokemonActions = "LOADING";
+const GET_POKEMON: PokemonActions = "GET_POKEMON";
+const GET_ALL_POKEMON: PokemonActions = "GET_ALL_POKEMON";
+const GET_ALL_POKEMON_DATA: PokemonActions = "GET_ALL_POKEMON_DATA";
+const GET_SEARCH: PokemonActions = "GET_SEARCH";
+const GET_POKEMON_DATABASE: PokemonActions = "GET_POKEMON_DATABASE";
+const NEXT: PokemonActions = "NEXT";
 
 // reducer
-const reducer = (state: any, action: any) => {
+const reducer = (
+  state: any,
+  action: { type: PokemonActions; payload?: any }
+) => {
   switch (action.type) {
     case LOADING:
       return { ...state, loading: true };
@@ -42,6 +55,10 @@ const reducer = (state: any, action: any) => {
       return { ...state, allPokemon: action.payload, loading: false };
     case GET_POKEMON:
       return { ...state, pokemon: action.payload, loading: false };
+    case GET_POKEMON_DATABASE:
+      return { ...state, pokemonDatabase: action.payload, loading: false };
+    case GET_SEARCH:
+      return { ...state, searchResults: action.payload, loading: false };
   }
   return state;
 };
@@ -74,18 +91,52 @@ export const GlobalProvider = ({ children }: Props) => {
   //get Pokemon info
 
   const getPokemon = async (name: any) => {
-    dispatch({ type: "lOADING" });
+    dispatch({ type: "LOADING" });
     const res = await fetch(`${baseUrl}/pokemon/${name}`);
     const data = await res.json();
 
     dispatch({ type: "GET_POKEMON", payload: data });
   };
 
+  //get all pokemons from database for search
+
+  const getPokemonDatabase = async () => {
+    dispatch({ type: "LOADING" });
+    const res = await fetch(`${baseUrl}/pokemon?limit=100000&offset=0`);
+    const data = await res.json();
+
+    dispatch({ type: "GET_POKEMON_DATABASE", payload: data.results });
+  };
+
+  //search pokemon without third library party as lodash
+
+  const debounce = (func: any, delay: any) => {
+    let timeoutId: any;
+    return (...args: any[]) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func.apply(null, args);
+      }, delay);
+    };
+  };
+
+  const realTimeSearch = debounce(async (search: string) => {
+    dispatch({ type: "LOADING" });
+    const res = state.pokemonDatabase.filter((pokemon: any) => {
+      return pokemon.name.includes(search.toLowerCase());
+    });
+    dispatch({ type: "GET_SEARCH", payload: res });
+  }, 500);
+
   useEffect(() => {
     allPokemon();
+    realTimeSearch();
+    getPokemonDatabase();
   }, []);
   return (
-    <GlobalContext.Provider value={{ ...state, allPokemonData, getPokemon }}>
+    <GlobalContext.Provider
+      value={{ ...state, allPokemonData, getPokemon, realTimeSearch }}
+    >
       {children}
     </GlobalContext.Provider>
   );
