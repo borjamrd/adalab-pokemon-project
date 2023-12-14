@@ -52,7 +52,12 @@ const reducer = (
     case LOADING:
       return { ...state, loading: true };
     case GET_ALL_POKEMON:
-      return { ...state, allPokemon: action.payload, loading: false };
+      return {
+        ...state,
+        allPokemon: action.payload.results,
+        next: action.payload.next,
+        loading: false,
+      };
     case GET_POKEMON:
       return { ...state, pokemon: action.payload, loading: false };
     case GET_POKEMON_DATABASE:
@@ -127,6 +132,15 @@ export const GlobalProvider = ({ children }: Props) => {
     });
     dispatch({ type: "GET_SEARCH", payload: res });
   }, 500);
+
+  //next page or load more pokemons
+
+  const next = async () => {
+    dispatch({ type: "LOADING" });
+    const res = await fetch(state.next);
+    const data = await res.json();
+    dispatch({ type: "NEXT", payload: data.results });
+  };
 
   useEffect(() => {
     allPokemon();

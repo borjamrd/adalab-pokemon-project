@@ -1,5 +1,6 @@
 "use client";
 
+import Loading from "@/components/Loading";
 import { PageTransitionLayout } from "@/components/PageTransitionsLayout";
 import PokemonCard from "@/components/PokemonCard";
 import { useGlobalContext } from "@/context/Global";
@@ -9,7 +10,8 @@ import Link from "next/link";
 import { ReactNode, useState } from "react";
 
 export default function Home() {
-  const { allPokemonData, realTimeSearch, searchResults } = useGlobalContext();
+  const { allPokemonData, realTimeSearch, searchResults, loading, getPokemon } =
+    useGlobalContext();
 
   const [search, setSearch] = useState("");
 
@@ -26,15 +28,18 @@ export default function Home() {
   const displaySearchedPokemon = (): ReactNode => {
     return searchResults.map((pokemon: any, i: number) => {
       return (
-        <Link href={pokemon.name} key={i} onClick={() => {}}>
-          {pokemon.name}
+        <Link
+          href={pokemon.name}
+          className={styles.search_pokemon_name}
+          key={i}
+        >
+          {pokemon.name?.slice(0, 1)?.toUpperCase() + pokemon.name?.slice(1)}
         </Link>
       );
     });
   };
   return (
     <PageTransitionLayout>
-      {" "}
       <main className={styles.main}>
         <form className={styles.search_form} onSubmit={handleSearch}>
           <div>
@@ -53,9 +58,22 @@ export default function Home() {
           </div>
         )}
         <div className={styles.grid}>
-          {allPokemonData.map((pokemon: any) => {
-            return <PokemonCard key={pokemon.id} pokemon={pokemon} />;
-          })}
+          {!loading ? (
+            allPokemonData.map((pokemon: any) => {
+              return <PokemonCard key={pokemon.id} pokemon={pokemon} />;
+            })
+          ) : (
+            <Loading />
+          )}
+        </div>
+        <div className="next">
+          {allPokemonData.length > 0 && (
+            <div>
+              <button className={styles.load_more} onClick={getPokemon}>
+                Load more &darr;
+              </button>
+            </div>
+          )}
         </div>
       </main>
     </PageTransitionLayout>

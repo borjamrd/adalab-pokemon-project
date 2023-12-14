@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { FC, ReactNode } from "react";
 
 // TYPES
@@ -8,11 +8,9 @@ interface ILayoutProps {
 }
 
 export const PageTransitionLayout: FC<ILayoutProps> = ({ children }) => {
-  const router = useRouter();
   return (
     <AnimatePresence mode={"wait"}>
       <motion.div
-        key={""}
         initial="initialState"
         animate="animateState"
         exit="exitState"

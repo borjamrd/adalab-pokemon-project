@@ -7,6 +7,7 @@ import styles from "@/styles/page.module.scss";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Types from "@/components/Types";
+import Loading from "@/components/Loading";
 
 export default function Page() {
   const params = useParams();
@@ -21,17 +22,22 @@ export default function Page() {
 
   return (
     <PageTransitionLayout>
-      {pokemonItem && (
+      {!loading && pokemonItem ? (
         <main className={styles.main}>
           <button onClick={() => router.back()}>Go Back</button>
-          <Image
-            src={pokemonItem.sprites?.other.dream_world.front_default}
-            width={400}
-            height={400}
-            alt={pokemonItem.name}
-          ></Image>
+          {pokemonItem.sprites?.other.dream_world.front_default && (
+            <Image
+              src={pokemonItem.sprites?.other.dream_world.front_default}
+              width={400}
+              height={400}
+              alt={pokemonItem.name}
+            ></Image>
+          )}
+
           <Types types={pokemonItem.types} />
         </main>
+      ) : (
+        <Loading />
       )}
     </PageTransitionLayout>
   );

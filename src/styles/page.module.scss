@@ -133,6 +133,25 @@
   border-radius: 12px;
   background-color: white;
   box-shadow: 3px 4px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.search_results::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.search_pokemon_name {
+  padding: 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.load_more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+
 }
 
 /* Enable hover only on non-touch devices */
