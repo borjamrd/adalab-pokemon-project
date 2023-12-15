@@ -10,7 +10,7 @@ import Link from "next/link";
 import { ReactNode, useState } from "react";
 
 export default function Home() {
-  const { allPokemonData, realTimeSearch, searchResults, loading, getPokemon } =
+  const { allPokemonData, realTimeSearch, searchResults, loading, next } =
     useGlobalContext();
 
   const [search, setSearch] = useState("");
@@ -41,40 +41,45 @@ export default function Home() {
   return (
     <PageTransitionLayout>
       <main className={styles.main}>
-        <form className={styles.search_form} onSubmit={handleSearch}>
-          <div>
-            <input
-              className={styles.input_control}
-              type="text"
-              value={search}
-              onChange={handleChange}
-              placeholder="Search Pokemon"
-            />
-          </div>
-        </form>
-        {search && searchResults?.length > 0 && (
-          <div className={styles.search_results}>
-            {displaySearchedPokemon()}
-          </div>
-        )}
-        <div className={styles.grid}>
-          {!loading ? (
-            allPokemonData.map((pokemon: any) => {
-              return <PokemonCard key={pokemon.id} pokemon={pokemon} />;
-            })
-          ) : (
-            <Loading />
-          )}
-        </div>
-        <div className="next">
-          {allPokemonData.length > 0 && (
+        {loading && <Loading />}
+        <>
+          <form
+            action=""
+            className={styles.search_form}
+            onSubmit={handleSearch}
+          >
             <div>
-              <button className={styles.load_more} onClick={getPokemon}>
-                Load more &darr;
-              </button>
+              <input
+                className={styles.input_control}
+                type="text"
+                value={search}
+                onChange={handleChange}
+                placeholder="Search Pokemon"
+              />
+            </div>
+          </form>
+          {search && searchResults?.length > 0 && (
+            <div className={styles.search_results}>
+              {displaySearchedPokemon()}
             </div>
           )}
-        </div>
+          <div className={styles.grid}>
+            {allPokemonData.map((pokemon: any) => {
+              return <PokemonCard key={pokemon.id} pokemon={pokemon} />;
+            })}
+          </div>
+          <div className="next">
+            {!loading && allPokemonData.length > 0 ? (
+              <div>
+                <button className={styles.load_more} onClick={next}>
+                  Load more &darr;
+                </button>
+              </div>
+            ) : (
+              <div>...Spinner</div>
+            )}
+          </div>
+        </>
       </main>
     </PageTransitionLayout>
   );

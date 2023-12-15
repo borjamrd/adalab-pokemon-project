@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Types from "@/components/Types";
 import Loading from "@/components/Loading";
+import Evolutions from "@/components/Evolutions";
 
 export default function Page() {
   const params = useParams();
@@ -20,25 +21,36 @@ export default function Page() {
     }
   }, [params.pokemon]);
 
+  console.log(pokemonItem);
   return (
     <PageTransitionLayout>
-      {!loading && pokemonItem ? (
-        <main className={styles.main}>
-          <button onClick={() => router.back()}>Go Back</button>
-          {pokemonItem.sprites?.other.dream_world.front_default && (
-            <Image
-              src={pokemonItem.sprites?.other.dream_world.front_default}
-              width={400}
-              height={400}
-              alt={pokemonItem.name}
-            ></Image>
-          )}
-
-          <Types types={pokemonItem.types} />
-        </main>
-      ) : (
-        <Loading />
-      )}
+      <main className={styles.main}>
+        {!loading && pokemonItem ? (
+          <div className={styles.pokemon_info}>
+            <button onClick={() => router.back()}>Go Back</button>
+            <div className={styles.pokemon_sections}>
+              <section className={styles.pokemon_section}>
+                {pokemonItem.sprites?.other.dream_world.front_default && (
+                  <Image
+                    src={pokemonItem.sprites?.other.dream_world.front_default}
+                    width={300}
+                    height={300}
+                    alt={pokemonItem.name}
+                  ></Image>
+                )}
+              </section>
+              <section className={styles.pokemon_section}>
+                <Types types={pokemonItem.types} />
+                {pokemonItem?.evolves_from_species && (
+                  <Evolutions evolutions={pokemonItem?.evolves_from_species} />
+                )}
+              </section>
+            </div>
+          </div>
+        ) : (
+          <Loading />
+        )}
+      </main>
     </PageTransitionLayout>
   );
 }
