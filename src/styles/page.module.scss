@@ -196,7 +196,7 @@
 
 .pokemon_info {
   display: flex;
-  justify-content: center;
+
   align-items: center;
   flex-direction: column;
   margin-top: 2rem;
@@ -206,7 +206,7 @@
 .pokemon_sections {
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
   margin-top: 2rem;
   width: 100%;
 }

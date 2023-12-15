@@ -40,11 +40,71 @@ export default function Page() {
                 )}
               </section>
               <section className={styles.pokemon_section}>
+                <div>
+                  <div>
+                    <h1>{pokemonItem.name}</h1>
+                    <div>#{pokemonItem.id}</div>
+                  </div>
+                  <div>
+                    <div>Height: {pokemonItem.height}</div>
+                    <div>Weight: {pokemonItem.weight}</div>
+                  </div>
+                  <div>
+                    <div>Base Experience: {pokemonItem.base_experience}</div>
+                    <div>Capture rate: {pokemonItem.capture_rate}</div>
+                  </div>
+                </div>
                 <Types types={pokemonItem.types} />
                 {pokemonItem?.evolves_from_species && (
                   <Evolutions evolutions={pokemonItem?.evolves_from_species} />
                 )}
+
+                {pokemonItem.abilities?.map((ability: any) => {
+                  return (
+                    <div key={ability.ability.name}>{ability.ability.name}</div>
+                  );
+                })}
               </section>
+            </div>
+            <div className={styles.pokemon_sections}>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Stat</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {pokemonItem.stats?.map((stat: any) => {
+                    return (
+                      <tr key={stat.stat.name}>
+                        <td>{stat.stat.name}</td>
+                        <td>{stat.base_stat}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Move</th>
+                    <th>Level</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {pokemonItem.moves?.map((move: any) => {
+                    return (
+                      <tr key={move.move.name}>
+                        <td>{move.move.name}</td>
+                        <td>
+                          {move.version_group_details[0].level_learned_at}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
             </div>
           </div>
         ) : (
