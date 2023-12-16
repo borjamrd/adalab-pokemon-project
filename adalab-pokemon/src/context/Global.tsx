@@ -62,7 +62,7 @@ const reducer = (
 
 export const GlobalProvider = ({ children }: Props) => {
   const baseUrl = "https://pokeapi.co/api/v2";
-  const limit = 20;
+  const limit = 40;
 
   const [state, dispatch] = useReducer(reducer, initialState);
   const [allPokemonData, setAllPokemonData] = useState<
@@ -73,16 +73,22 @@ export const GlobalProvider = ({ children }: Props) => {
     dispatch({ type: "LOADING" });
     const response = await fetch(`${baseUrl}/pokemon?limit=${limit}`);
     const data = await response.json();
+
+    console.log(data);
     dispatch({ type: "GET_ALL_POKEMON", payload: data });
 
+    // console.log(data);
     //fetch temporary data
     const allPokemonData: any = [];
 
     for (const pokemon of data.results) {
       const pokemonResponse = await fetch(pokemon.url);
       const pokemonData = await pokemonResponse.json();
+
+      // console.log(pokemonData);
       const evolutionChainResponse = await fetch(pokemonData.species.url);
       const evolutionData = await evolutionChainResponse.json();
+
       allPokemonData.push({ ...pokemonData, ...evolutionData });
     }
     setAllPokemonData(allPokemonData);
@@ -117,6 +123,7 @@ export const GlobalProvider = ({ children }: Props) => {
     const res = await fetch(`${baseUrl}/pokemon?limit=100000&offset=0`);
     const data = await res.json();
 
+    console.log(data);
     dispatch({ type: "GET_POKEMON_DATABASE", payload: data.results });
   };
 
