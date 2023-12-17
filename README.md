@@ -1,6 +1,12 @@
 # Adalab Pokemon-Application
 
-This project contains both the backend and frontend applications.
+This project contains a fullstack application that allows you to find all of your favorite Pokemon and explore their evolutions, abilities, experience, and more detailed information!
+
+In order to start both server and client side you must clone this repository:
+
+```
+git clone git@github.com:borjamrd/adalab-pokemon-project.git
+```
 
 ## Backend
 
