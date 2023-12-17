@@ -6,4 +6,5 @@ const getAllPokemons = require('../controllers/getAllPokemons')
 router.route('/pokemon').get(getAllPokemons);
 
 
+
 module.exports = router;    

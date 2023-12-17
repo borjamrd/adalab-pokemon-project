@@ -22,15 +22,6 @@ const getAllPokemons = async (req, res) => {
     }
 }
 
-const getPokemonByName = async (req, res) => {
-    const { name } = req.params;
-    try {
-        const pokemon = await basicPokemonSchema.findOne({ name });
-        res.status(200).json(pokemon);
-    } catch (error) {
-        res.status(500).json({ error: 'something got wrong' });
-    }
-}
 
 
 module.exports = getAllPokemons;
