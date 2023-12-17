@@ -62,7 +62,7 @@ const reducer = (
 
 export const GlobalProvider = ({ children }: Props) => {
   const baseUrl = "https://pokeapi.co/api/v2";
-  const limit = 40;
+  const limit = 20;
 
   const [state, dispatch] = useReducer(reducer, initialState);
   const [allPokemonData, setAllPokemonData] = useState<
@@ -154,6 +154,7 @@ export const GlobalProvider = ({ children }: Props) => {
     const res = await fetch(state.next);
     const data = await res.json();
 
+    console.log(data);
     dispatch({ type: "NEXT", payload: data });
 
     const nextPagePokemonData: any = [];

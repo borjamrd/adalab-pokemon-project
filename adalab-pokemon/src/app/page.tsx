@@ -31,7 +31,7 @@ export default function Home() {
         <Link
           href={pokemon.name}
           className={styles.search_pokemon_name}
-          key={i}
+          key={pokemon.name}
         >
           {pokemon.name?.slice(0, 1)?.toUpperCase() + pokemon.name?.slice(1)}
         </Link>
