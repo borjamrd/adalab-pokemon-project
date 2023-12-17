@@ -71,7 +71,9 @@ export const GlobalProvider = ({ children }: Props) => {
 
   const allPokemon = async () => {
     dispatch({ type: "LOADING" });
-    const response = await fetch(`${baseUrl}/pokemon?limit=${limit}`);
+    const response = await fetch(
+      `https://adalab-server.onrender.com/api/pokemon?limit=${limit}`
+    );
     const data = await response.json();
 
     console.log(data);

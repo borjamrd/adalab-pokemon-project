@@ -1,12 +1,15 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const dotenv = require('dotenv');
 dotenv.config();
 const connectToMongoDB = require('./configs/db.config');
 
 
-
+app.use(cors())
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 connectToMongoDB;
 app.use("/api", require("./routes"));
 
