@@ -61,7 +61,11 @@ const reducer = (
 };
 
 export const GlobalProvider = ({ children }: Props) => {
-  const baseUrl = "https://pokeapi.co/api/v2";
+  const baseUrl =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:4500/api"
+      : "https://adalab-server.onrender.com/api";
+
   const limit = 20;
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -71,15 +75,11 @@ export const GlobalProvider = ({ children }: Props) => {
 
   const allPokemon = async () => {
     dispatch({ type: "LOADING" });
-    const response = await fetch(
-      `https://adalab-server.onrender.com/api/pokemon?limit=${limit}`
-    );
+    const response = await fetch(`${baseUrl}/pokemon?limit=${limit}`);
     const data = await response.json();
 
-    console.log(data);
     dispatch({ type: "GET_ALL_POKEMON", payload: data });
 
-    // console.log(data);
     //fetch temporary data
     const allPokemonData: any = [];
 
@@ -87,7 +87,6 @@ export const GlobalProvider = ({ children }: Props) => {
       const pokemonResponse = await fetch(pokemon.url);
       const pokemonData = await pokemonResponse.json();
 
-      // console.log(pokemonData);
       const evolutionChainResponse = await fetch(pokemonData.species.url);
       const evolutionData = await evolutionChainResponse.json();
 
@@ -96,17 +95,11 @@ export const GlobalProvider = ({ children }: Props) => {
     setAllPokemonData(allPokemonData);
   };
 
-  // const getEvolutionChain = async (id: string) => {
-  //   const res = await fetch(`${baseUrl}/evolution-chain/${id}`);
-  //   const data = await res.json();
-  //   console.log(data);
-  // };
-
   //get Pokemon info
 
   const getPokemon = async (name: string) => {
     dispatch({ type: "LOADING" });
-    const res = await fetch(`${baseUrl}/pokemon/${name}`);
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
     const pokemonData = await res.json();
 
     const evolutionChainResponse = await fetch(pokemonData.species.url);
@@ -125,7 +118,6 @@ export const GlobalProvider = ({ children }: Props) => {
     const res = await fetch(`${baseUrl}/pokemon?limit=100000&offset=0`);
     const data = await res.json();
 
-    console.log(data);
     dispatch({ type: "GET_POKEMON_DATABASE", payload: data.results });
   };
 
