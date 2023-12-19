@@ -46,6 +46,6 @@ To start the frontend application, follow these steps:
 
 1. Open a new terminal and navigate to the frontend directory: `cd adalab-client`
 2. Install the required dependencies: `npm install`
-3. Start the frontend development server: `npm start`
+3. Start the frontend development server: `npm run dev`
 
 The frontend application will be accessible on `http://localhost:3000`.
