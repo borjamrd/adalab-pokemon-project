@@ -78,6 +78,7 @@ export const GlobalProvider = ({ children }: Props) => {
     const response = await fetch(`${baseUrl}/pokemon?limit=${limit}`);
     const data = await response.json();
 
+    console.log(data);
     dispatch({ type: "GET_ALL_POKEMON", payload: data });
 
     //fetch temporary data

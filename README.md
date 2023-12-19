@@ -35,9 +35,10 @@ PORT=4500
 ```
 
 2. Install the required dependencies: `npm install`
-3. Start the backend server: `npm start`
+3. Start the backend server: `npm run dev`
 
-The backend server will start running on `http://localhost:4500`.
+The backend server will start running on `http://localhost:4500`
+Check the first 20 pokemons here: `http://localhost:4500/api/pokemon`
 
 ## Frontend
 

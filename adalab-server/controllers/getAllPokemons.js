@@ -7,8 +7,8 @@ const getAllPokemons = async (req, res) => {
         const limit = req.query.limit || 20;
         const basicPokemonInfo = await basicPokemonSchema.find().limit(req.query.limit).skip(req.query.offset);
 
-        const nextUrl = offset < count && `${config.BASE_URL}/pokemon?offset=${Number(offset) + Number(limit)}&limit=${limit}`
-        const previousUrl = offset > 0 && `${config.BASE_URL}/pokemon?offset=${offset - limit}&limit=${limit}`
+        const nextUrl = offset < count && `${config.BASE_URL}/api/pokemon?offset=${Number(offset) + Number(limit)}&limit=${limit}`
+        const previousUrl = offset > 0 && `${config.BASE_URL}/api/pokemon?offset=${offset - limit}&limit=${limit}`
 
         res.status(200).json({
             count: count,
