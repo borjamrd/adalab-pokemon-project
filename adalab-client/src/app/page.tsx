@@ -26,7 +26,7 @@ export default function Home() {
   };
 
   const displaySearchedPokemon = (): ReactNode => {
-    return searchResults.map((pokemon: any, i: number) => {
+    return searchResults.map((pokemon: any) => {
       return (
         <Link
           href={pokemon.name}
@@ -54,7 +54,7 @@ export default function Home() {
                 type="text"
                 value={search}
                 onChange={handleChange}
-                placeholder="Search Pokemon"
+                placeholder="Filtra pokemons por nombre"
               />
             </div>
           </form>
@@ -72,7 +72,7 @@ export default function Home() {
             {!loading && allPokemonData.length > 0 ? (
               <div>
                 <button className={styles.load_more} onClick={next}>
-                  Load more &darr;
+                  Cargar más &darr;
                 </button>
               </div>
             ) : (

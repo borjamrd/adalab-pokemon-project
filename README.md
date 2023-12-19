@@ -21,7 +21,7 @@ To start the backend application, follow these steps:
 1. Open a terminal and navigate to the backend directory:
 
 ```
-pcd adalab-server
+cd adalab-server
 ```
 
 2. In root folder, you must create a `development.env` file and add this variables in order to access the mongodb atlas database and stablish your local PORT and the BASE_URL for "next" field in the pagination:
@@ -37,7 +37,7 @@ PORT=4500
 2. Install the required dependencies: `npm install`
 3. Start the backend server: `npm run dev`
 
-The backend server will start running on `http://localhost:4500`
+The backend server will start running on `http://localhost:4500`.
 Check the first 20 pokemons here: `http://localhost:4500/api/pokemon`
 
 ## Frontend

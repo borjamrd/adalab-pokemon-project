@@ -1,6 +1,6 @@
-import { PageTransitionLayout } from "@/components/PageTransitionsLayout";
 import Providers from "@/context/Providers";
 import "@/styles/globals.scss";
+import styles from "@/styles/page.module.scss";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
@@ -19,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <div className={styles.dots}>
+          <Providers>{children}</Providers>
+        </div>
       </body>
     </html>
   );

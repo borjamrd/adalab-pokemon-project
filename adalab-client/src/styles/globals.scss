@@ -6,8 +6,7 @@
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
 
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --background: #FFCC00;
 
   --primary-glow: conic-gradient(from 180deg at 50% 50%,
       #16abff33 0deg,
@@ -30,15 +29,14 @@
 
   --callout-rgb: 238, 240, 241;
   --callout-border-rgb: 172, 175, 176;
-  --card-rgb: 180, 185, 188;
+  --card-rgb: 255, 255, 255;
   --card-border-rgb: 131, 134, 135;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background: #FFCC00;
 
     --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
     --secondary-glow: linear-gradient(to bottom right,
@@ -77,14 +75,48 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  background: (var(--background));
+
+
+}
+
+h1 {
+  color: rgb(var(--foreground-rgb));
+  background: (var(--background));
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* Apply the styles to the scrollbar */
+::-webkit-scrollbar {
+  width: 3px;
+  /* Set the width of the scrollbar */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  /* Set the background color of the track */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  /* Set the color of the scrollbar handle */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  /* Set the color of the scrollbar handle on hover */
 }
 
 @media (prefers-color-scheme: dark) {
