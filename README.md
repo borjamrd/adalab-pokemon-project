@@ -29,7 +29,7 @@ pcd adalab-server
 ```
 NODE_ENV=development
 MONGO_URI="mongodb+srv://adalab:1234@adalab-cluster.znwwmvg.mongodb.net/adalab-pokemon?retryWrites=true&w=majority"
-BASE_URL=http://localhost:4500
+BASE_URL=http://localhost:4500/api
 HOST=localhost
 PORT=4500
 ```
