@@ -41,7 +41,6 @@ export default function Home() {
   return (
     <PageTransitionLayout>
       <main className={styles.main}>
-        {loading && <Loading />}
         <>
           <form
             action=""
@@ -58,6 +57,7 @@ export default function Home() {
               />
             </div>
           </form>
+          {loading || (allPokemonData.length === 0 && <Loading />)}
           {search && searchResults?.length > 0 && (
             <div className={styles.search_results}>
               {displaySearchedPokemon()}
@@ -76,7 +76,11 @@ export default function Home() {
                 </button>
               </div>
             ) : (
-              <div>...Spinner</div>
+              <div>
+                <button className={styles.load_more} disabled>
+                  Cargando...
+                </button>
+              </div>
             )}
           </div>
         </>

@@ -1,6 +1,11 @@
 import { firstLetterToUpperCase } from "@/utils/utils";
 import styles from "@/styles/pokemon.module.scss";
-export default function Abilities({ abilities }: any) {
+import { Pokemon } from "@/models/models";
+export default function Abilities({
+  abilities,
+}: {
+  abilities: Pokemon["abilities"];
+}) {
   return (
     <div className={styles.evolution_section}>
       <p>Abilidades:</p>

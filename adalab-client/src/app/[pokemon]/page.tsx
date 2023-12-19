@@ -11,11 +11,20 @@ import Loading from "@/components/Loading";
 import Evolutions from "@/components/Evolutions";
 import { firstLetterToUpperCase } from "@/utils/utils";
 import Abilities from "@/components/Abilities";
+import { Pokemon } from "@/models/models";
 
 export default function Page() {
   const params = useParams();
   const router = useRouter();
-  const { getPokemon, loading, pokemon: pokemonItem } = useGlobalContext();
+  const {
+    getPokemon,
+    loading,
+    pokemon: pokemonItem,
+  }: {
+    getPokemon: any;
+    loading: boolean;
+    pokemon: Pokemon;
+  } = useGlobalContext();
 
   useEffect(() => {
     if (params.pokemon) {
@@ -33,7 +42,7 @@ export default function Page() {
             </button>
             <div className={styles.pokemon_sections}>
               <section className={styles.pokemon_section}>
-                {pokemonItem.sprites?.other.dream_world.front_default && (
+                {pokemonItem.sprites?.other?.dream_world.front_default && (
                   <Image
                     src={pokemonItem.sprites?.other.dream_world.front_default}
                     width={250}

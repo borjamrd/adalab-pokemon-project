@@ -4,6 +4,8 @@ import {
   initialState,
   PokemonActions,
   InitialStateInterface,
+  PokemonBasicInfo,
+  Pokemon,
 } from "@/models/models";
 import React, {
   createContext,
@@ -17,6 +19,7 @@ interface Props {
   children: ReactNode;
 }
 
+//
 const GlobalContext = createContext<any>(initialState);
 
 // actions
@@ -67,21 +70,16 @@ export const GlobalProvider = ({ children }: Props) => {
       : "https://adalab-server.onrender.com/api";
 
   const limit = 20;
-
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [allPokemonData, setAllPokemonData] = useState<
-    { name: string; url: string }[]
-  >([]);
+  const [allPokemonData, setAllPokemonData] = useState<Partial<Pokemon>[]>([]);
 
   const allPokemon = async () => {
     dispatch({ type: "LOADING" });
     const response = await fetch(`${baseUrl}/pokemon?limit=${limit}`);
     const data = await response.json();
 
-    console.log(data);
     dispatch({ type: "GET_ALL_POKEMON", payload: data });
 
-    //fetch temporary data
     const allPokemonData: any = [];
 
     for (const pokemon of data.results) {
@@ -95,8 +93,6 @@ export const GlobalProvider = ({ children }: Props) => {
     }
     setAllPokemonData(allPokemonData);
   };
-
-  //get Pokemon info
 
   const getPokemon = async (name: string) => {
     dispatch({ type: "LOADING" });
