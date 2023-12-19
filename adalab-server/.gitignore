@@ -1,3 +1,4 @@
-
-.env
+#env files
+development.env
+production.env
 node_modules
